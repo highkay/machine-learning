@@ -13555,7 +13555,7 @@ Run the code cell below to plot the survival outcomes of male passengers based o
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">vs</span><span class="o">.</span><span class="n">survival_stats</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Sex == &#39;female&#39;&quot;</span><span class="p">])</span>
@@ -13977,7 +13977,7 @@ Fill in the missing code below so that the function will make this prediction.<b
         <span class="c1"># and write your prediction conditions here</span>
         <span class="k">if</span> <span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;female&#39;</span><span class="p">:</span>
             <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;male&#39;</span> <span class="ow">and</span> <span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;male&#39;</span> <span class="ow">and</span> <span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
             <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -14058,7 +14058,7 @@ Fill in the missing code below so that the function will make this prediction.<b
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[65]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">vs</span><span class="o">.</span><span class="n">survival_stats</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">,</span> <span class="s1">&#39;Parch&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Sex == &#39;female&#39;&quot;</span><span class="p">,</span><span class="s2">&quot;Pclass == 3&quot;</span><span class="p">])</span>
@@ -14445,7 +14445,7 @@ Make sure to keep track of the various features and conditions you tried before 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">isnan</span>
@@ -14456,24 +14456,19 @@ Make sure to keep track of the various features and conditions you tried before 
     <span class="n">predictions</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">passenger</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
         
-        <span class="c1"># Remove the &#39;pass&#39; statement below </span>
-        <span class="c1"># and write your prediction conditions here</span>
-        <span class="c1">#print(type(passenger[&#39;Cabin&#39;]))</span>
-        <span class="c1">#print(passenger[&#39;Cabin&#39;])</span>
-        <span class="c1"># rich woman get life</span>
+        <span class="c1"># At first , I find a feature Cabin affect the predictions a lot , who&#39;s Cabin is NaN has very little chance to live. but I am new to Python , After amount tries I</span>
+        <span class="c1"># giveup the Cabin and turn into the exist &#39;Sex&#39; feature . Although the female have a remarkable chance to survival, but I think it is a disaster , there is also a </span>
+        <span class="c1"># lot of female died. If I figure out them, I could improve the accuracy. Then I tried several feature combined with Sex. Luckly the Pclass show something, the</span>
+        <span class="c1"># female has more wealth(pclass 1 and 2) really has luck(almost all women are saved), but to poor women, it depends on the God(50%). So I modify the first model,</span>
+        <span class="c1"># splitting the female into 2 parts with Pclass, new model has the same predication result but really improve the accuracy on female. Then I tried SibSp and Parch</span>
+        <span class="c1"># feature fouse on Pclass 3 female group , soon I find out a female without Parch and SibSp could be survival easier than other groups. At last I complete the second</span>
+        <span class="c1"># model.</span>
         <span class="k">if</span> <span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;female&#39;</span> <span class="ow">and</span> <span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
             <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="c1"># poor woman get blood help</span>
         <span class="k">elif</span> <span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;female&#39;</span> <span class="ow">and</span> <span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="p">(</span><span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Parch&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;SibSp&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">):</span>
             <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;male&#39;</span> <span class="ow">and</span> <span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">:</span>
             <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="c1">#elif passenger[&#39;Sex&#39;] == &#39;male&#39; and passenger[&#39;Pclass&#39;] == 1:</span>
-            <span class="c1">#predictions.append(1)</span>
-        <span class="c1">#elif passenger[&#39;Cabin&#39;] == passenger[&#39;Cabin&#39;]:</span>
-            <span class="c1">#print(type(passenger[&#39;Cabin&#39;]))</span>
-            <span class="c1">#print(passenger[&#39;Cabin&#39;])</span>
-        <span class="c1">#    predictions.append(1)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     
